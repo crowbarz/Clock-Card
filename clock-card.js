@@ -76,6 +76,7 @@ class ClockCard extends Polymer.Element {
       if (this.config.locale == null) this.config.locale = 'en-US';
       if (this.config.timeStyle == null) this.config.timeStyle = 'medium'; // full, long, medium, short
       if (this.config.dateStyle == null) this.config.dateStyle = 'medium'; // full, long, medium, short
+      if (this.config.style == null) this.config.style = 'both'; // full, long, medium, short
     }
     
     set hass(hass) {
@@ -85,8 +86,23 @@ class ClockCard extends Polymer.Element {
     _updateTime(force = true) { 
       const event = new Date(Date.now());
  
-      this.time.innerHTML = event.toLocaleTimeString(this.config.locale, { timeStyle : this.config.timeStyle });
-      this.date.innerHTML = event.toLocaleDateString(this.config.locale, { dateStyle : this.config.dateStyle });
+      if(this.config.style === 'both') {
+        this.time.innerHTML = event.toLocaleTimeString(this.config.locale, { timeStyle : this.config.timeStyle });
+        this.date.innerHTML = event.toLocaleDateString(this.config.locale, { dateStyle : this.config.dateStyle });
+        return;
+      }
+
+      if(this.config.style === 'date') {
+        this.time.innerHTML = event.toLocaleDateString(this.config.locale, { dateStyle : this.config.dateStyle });
+        this.date.innerHTML = '';
+        return;
+      }
+
+      if(this.config.style === 'time') {
+        this.time.innerHTML = event.toLocaleTimeString(this.config.locale, { timeStyle : this.config.timeStyle });
+        this.date.innerHTML = '';
+        return;
+      }
     }
 
     // The height of your card. Home Assistant uses this to automatically
