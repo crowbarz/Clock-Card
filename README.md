@@ -16,12 +16,14 @@ The clock card can then be used by adding a 'manual-card' when configuring the U
 ...
   type: 'custom: clock-card'
   locale: <iso language code>
+  style: 'both' | 'time' | 'date'
   timeStyle: 'full' | 'long' | 'medium' | 'short'
   dateStyle: 'full' | 'long' | 'medium' | 'short'
 
 ```
 
 'en-US' is default as locale.</br>
+'both' is default as style.</br>
 'medium' is default, both for time and date format
 
 
