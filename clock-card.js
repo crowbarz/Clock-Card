@@ -74,9 +74,9 @@ class ClockCard extends Polymer.Element {
     setConfig(config) {
       this.config = config;
       if (this.config.locale == null) this.config.locale = 'en-US';
-      if (this.config.timeStyle == null) this.config.timeStyle = 'medium'; // full, long, medium, short
-      if (this.config.dateStyle == null) this.config.dateStyle = 'medium'; // full, long, medium, short
-      if (this.config.style == null) this.config.style = 'both'; // full, long, medium, short
+      if (this.config.time_style == null) this.config.time_style = 'medium'; // full, long, medium, short
+      if (this.config.date_style == null) this.config.date_style = 'medium'; // full, long, medium, short
+      if (this.config.show == null) this.config.show = 'both'; // date, time, both
     }
     
     set hass(hass) {
@@ -86,20 +86,20 @@ class ClockCard extends Polymer.Element {
     _updateTime(force = true) { 
       const event = new Date(Date.now());
  
-      if(this.config.style === 'both') {
-        this.time.innerHTML = event.toLocaleTimeString(this.config.locale, { timeStyle : this.config.timeStyle });
-        this.date.innerHTML = event.toLocaleDateString(this.config.locale, { dateStyle : this.config.dateStyle });
+      if(this.config.show === 'both') {
+        this.time.innerHTML = event.toLocaleTimeString(this.config.locale, { timeStyle : this.config.time_style });
+        this.date.innerHTML = event.toLocaleDateString(this.config.locale, { dateStyle : this.config.date_style });
         return;
       }
 
-      if(this.config.style === 'date') {
-        this.time.innerHTML = event.toLocaleDateString(this.config.locale, { dateStyle : this.config.dateStyle });
+      if(this.config.show === 'date') {
+        this.time.innerHTML = event.toLocaleDateString(this.config.locale, { dateStyle : this.config.date_style });
         this.date.innerHTML = '';
         return;
       }
 
-      if(this.config.style === 'time') {
-        this.time.innerHTML = event.toLocaleTimeString(this.config.locale, { timeStyle : this.config.timeStyle });
+      if(this.config.show === 'time') {
+        this.time.innerHTML = event.toLocaleTimeString(this.config.locale, { timeStyle : this.config.time_style });
         this.date.innerHTML = '';
         return;
       }
